@@ -1,0 +1,92 @@
+<div class="relative">
+
+
+  <div class=" border-4 border-red-600 grid  grid-auto-fit p-4">
+      <div class=" flex  flex-row justify-between align-middle">
+          <div class="p-3 ">
+            <h4 class="text-4xl font-black text-gray-900">Student Portal</h4>
+          </div>
+          <div class="p-3 ">
+            <button (click)="openModel()" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Add new</button>
+          </div>
+      </div>
+  </div>
+      @if (studentList.length !== 0) {
+  <div class="border-4 border-red-600 m-3 grid grid-auto-fit-sm ">
+    @for (item of studentList; track $index) {
+  
+<div   class="w-full max-w-sm bg-white border border-gray-950 rounded-lg shadow m-3 ">
+    
+    <div class="flex flex-col items-center pb-10 pt-3">
+        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="../assets/man-user-circle-icon.svg" alt="human"/>
+        <h5 class="mb-1 text-xl font-medium text-gray-900 ">{{item.name}}</h5>
+        <span class="text-sm text-gray-500 ">{{item.mobileNo}}</span>
+        <div class="border-2 w-full flex-col ">
+          <p class="text-sm text-gray-900 p-1 font-bold text-center">{{item.city}},{{item.state}},{{item.pincode}}</p>
+          <p class="text-sm text-gray-900 p-1 text-center">{{item.address}}</p>
+          <p class="text-sm text-gray-900 text-purple-600 p-1 text-center">{{item.email}}</p>
+        </div>
+        <div class="flex mt-4 md:mt-6">
+            <button (click)="onEdit(item)"  class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">edit</button>
+            <button (click)="onDelete(item)" class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">delete</button>
+        </div>
+    </div>
+  </div>  
+  }
+  </div>
+  } @else { 
+    <div class="row">
+      <div class="col-12 p-4 text-center">
+        <p>No Record Found. Create New Record</p>
+      </div>
+    </div>
+  }
+    
+    
+  
+  <div #hello class="w-1/2 border-4  border-gray-600 absolute z-10 top-20 left-[300px] bg-slate-900 hidden">
+  
+  
+    <h2 class="max-w-lg text-3xl font-semibold leading-normal text-white p-3">Create new student</h2>
+  
+    <div class="relative z-0 w-full mb-5 group ">
+     
+     
+      <input  [(ngModel)]="studentObj.name" type="text"  class="placeholder-slate-50 font-bold block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="name" required />
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <input  [(ngModel)]="studentObj.mobileNo" type="number"  class=" placeholder-slate-50 font-bold block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Mobile" required />
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <input  [(ngModel)]="studentObj.email" type="email"  class="placeholder-slate-50 block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Email" required />
+      
+    </div>
+    <div class="grid md:grid-cols-2 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+        <input  [(ngModel)]="studentObj.city" type="text"  class="placeholder-slate-50 block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="City" required />
+        
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        <input [(ngModel)]="studentObj.state" type="text" class="placeholder-slate-50 block py-2.5 px-0 w-full text-sm text-white text- bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="state" required />
+        
+    </div>
+    </div>
+    <div class="grid md:grid-cols-2 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+        <input [(ngModel)]="studentObj.pincode" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="placeholder-slate-50 block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="PindCOde" required />
+        
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        <textarea [(ngModel)]="studentObj.address" placeholder="Address" rows="3" class="placeholder-slate-50 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"  >Address</textarea>
+    </div>
+    </div>
+    @if(studentObj.id==0){
+
+      <button (click)="saveStudent()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    }@else{
+      <button (click)="saveStudent()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>  
+    }
+    <button (click)="closeModel()" class="ml-2 ext-white text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">close</button>
+  
+  </div>
+</div>
