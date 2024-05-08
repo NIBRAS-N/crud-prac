@@ -35,7 +35,7 @@ export class AppComponent {
     this.studentObj = new Student();
     if(this.model != null)this.model.nativeElement.style.display="none";
   }
-
+  
   saveStudent(){
     debugger;
     const localData = localStorage.getItem("crud");
@@ -52,12 +52,14 @@ export class AppComponent {
       localStorage.setItem("crud",JSON.stringify(newArr));
     }
     this.closeModel();
+    this.ngOnInit();
   }
 
   onDelete(item: Student) {
     const isDelet = confirm("Are you sure want to Delete");
     if(isDelet) {
-      const currentRecord =  this.studentList.findIndex(m=> m.id === this.studentObj.id);
+      
+      const currentRecord =  this.studentList.findIndex(m=> m.id === item.id);
       this.studentList.splice(currentRecord,1);
       localStorage.setItem('crud', JSON.stringify(this.studentList));
     }
