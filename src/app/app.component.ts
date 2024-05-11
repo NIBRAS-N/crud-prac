@@ -34,13 +34,14 @@ export class AppComponent {
   closeModel(){
     this.studentObj = new Student();
     if(this.model != null)this.model.nativeElement.style.display="none";
+    this.ngOnInit();
   }
   
   saveStudent(){
     debugger;
     const localData = localStorage.getItem("crud");
-    if(localData != null){
-      const oldData = JSON.parse(localData)
+    if(localData != null && localData != "undefined"){
+      const oldData = JSON.parse(localData!)
       this.studentObj.id = oldData.length + 1;
       oldData.push(this.studentObj);
       localStorage.setItem("crud",JSON.stringify(oldData));
@@ -61,6 +62,8 @@ export class AppComponent {
       
       const currentRecord =  this.studentList.findIndex(m=> m.id === item.id);
       this.studentList.splice(currentRecord,1);
+      let i=1;
+      this.studentList.forEach((item)=>item.id=i++);
       localStorage.setItem('crud', JSON.stringify(this.studentList));
     }
   }
@@ -70,13 +73,15 @@ export class AppComponent {
   }
 
   updateStud() {
-    const currentRecord =  this.studentList.find(m=> m.id === this.studentObj.id);
-    if(currentRecord != undefined) {
-      currentRecord.name = this.studentObj.name;
-      currentRecord.address =  this.studentObj.address;
-      currentRecord.mobileNo =  this.studentObj.mobileNo;
-    };
-    localStorage.setItem('angular17crud', JSON.stringify(this.studentList));
+    // const currentRecord:any =  this.studentList.find(m=> m.id === this.studentObj.id);
+    // if(currentRecord != undefined) {
+    //   currentRecord.name = this.studentObj.name;
+    //   currentRecord.address =  this.studentObj.address;
+    //   currentRecord.mobileNo =  this.studentObj.mobileNo;
+    // };
+    // this.studentList[this.studentObj.id-1]=currentRecord;
+    // console.log(this.studentObj.id);
+    localStorage.setItem('crud', JSON.stringify(this.studentList));
     this.closeModel()
   }
 }
